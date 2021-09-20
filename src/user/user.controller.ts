@@ -27,7 +27,7 @@ export class UserController {
   async googleauthRedirect(@Request() req) {
     const Token = await this.authService.createToken(req.user);
     return {
-      url: 'OAuthLogin://login?user=' + JSON.stringify(req.user),
+      url: 'OAuthLogin://login?user=' + JSON.stringify(req.user + Token),
     };
   }
 }
