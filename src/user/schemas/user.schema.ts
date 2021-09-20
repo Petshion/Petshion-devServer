@@ -7,10 +7,10 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class Basket {
-  @Prop({ type: SchemaTypes.ObjectId })
+  @Prop({ type: Types.ObjectId })
   _id: Types.ObjectId;
 
-  @Prop({ type: SchemaTypes.ObjectId, ref: 'Product' })
+  @Prop({ type: Types.ObjectId, ref: 'Product' })
   product_id: Types.ObjectId;
 
   @Prop({ type: String })
@@ -37,8 +37,8 @@ export class User {
   @Prop()
   basket: [Basket];
 
-  @Prop({ type: SchemaTypes.ObjectId, ref: 'Product' })
-  Pawmark: [Types.ObjectId];
+  @Prop({ type: Types.ObjectId, ref: 'Product' })
+  pawmark: [Types.ObjectId];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
