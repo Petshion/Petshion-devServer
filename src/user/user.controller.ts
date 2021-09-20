@@ -13,6 +13,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Console } from 'console';
 import { AuthService } from 'src/auth/auth.service';
 import { GoogleAuthGuard } from 'src/auth/guard/google-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { BasketListDto } from './dto/BasketList.dto';
 import { UserService } from './user.service';
 
@@ -39,6 +40,7 @@ export class UserController {
   }
   @Get('pawmark')
   @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '모든 발바닥마크 요청',
     description: '받은 엑세스토큰의 id에 저장되어있는 pawmark를 모두 조회한다.',
@@ -49,6 +51,7 @@ export class UserController {
   }
   @Post('pawmark')
   @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '발바닥마크 추가',
     description: '받은 엑세스토큰의 id에 해당 상품의 oid를 pawmark에 추가한다.',
@@ -58,6 +61,7 @@ export class UserController {
   }
   @Delete('pawmark')
   @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '발바닥마크 삭제',
     description:
@@ -68,6 +72,7 @@ export class UserController {
   }
   @Get('basket')
   @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '모든 장바구니 요청',
     description: '받은 엑세스토큰의 id에 저장되어있는 basket을 모두 조회한다.',
@@ -77,6 +82,7 @@ export class UserController {
   }
   @Post('basket')
   @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '장바구니 추가',
     description: '받은 엑세스토큰의 id에 해당 상품을 basket에 추가한다.',
@@ -89,6 +95,7 @@ export class UserController {
   }
   @Delete('basket')
   @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '장바구니 삭제',
     description: '받은 엑세스토큰의 id에 해당 상품을 basket에서 삭제한다.',
