@@ -8,8 +8,6 @@ export class AuthService {
     console.log('user._id=' + user._id);
     const payload = { id: user._id };
     console.log(payload);
-    return await {
-      access_token: this.jwtService.sign(payload),
-    };
+    return await this.jwtService.sign(payload);
   }
 }

@@ -50,7 +50,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       savedUserData,
       Token,
     };
-    console.log('Userdata=' + UserData);
+    console.log('Userdata=' + JSON.stringify(UserData));
     done(null, UserData);
   }
 }
