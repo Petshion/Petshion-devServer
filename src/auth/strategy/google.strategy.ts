@@ -45,7 +45,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     const savedUserData = await this.UserModel.findOne({
       googleId: user.googleid,
     });
-    const Token = this.authService.createToken(savedUserData);
+    const Token = await this.authService.createToken(savedUserData);
     const UserData = {
       savedUserData,
       Token,
