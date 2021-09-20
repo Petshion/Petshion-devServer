@@ -5,7 +5,7 @@ import { CreateProductDto } from './product/dto/CreateProduct.dto';
 import { QueryFilteringProductDto } from './product/dto/QueryFilteringProduct.dto';
 import { FilteringProductDto } from './product/dto/FilteringProduct.dto';
 import { FindProductDto } from './product/dto/FindProduct.dto';
-import { ShowlistProductDto } from './product/dto/ShowlistProduct.dto';
+import { ProductListDto } from './product/dto/ProductList.dto';
 declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,7 +22,7 @@ async function bootstrap() {
       CreateProductDto,
       FilteringProductDto,
       FindProductDto,
-      ShowlistProductDto,
+      ProductListDto,
       QueryFilteringProductDto,
     ],
   });

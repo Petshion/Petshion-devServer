@@ -10,7 +10,7 @@ import { CreateProductDto } from './dto/CreateProduct.dto';
 import { QueryFilteringProductDto } from './dto/QueryFilteringProduct.dto';
 import { FilteringProductDto } from './dto/FilteringProduct.dto';
 import { FindProductDto } from './dto/FindProduct.dto';
-import { ShowlistProductDto } from './dto/ShowlistProduct.dto';
+import { ProductListDto } from './dto/ProductList.dto';
 import { ProductService } from './product.service';
 
 @Controller()
@@ -22,6 +22,11 @@ export class ProductController {
   async CreateProduct(
     @Body() CreateProductDto: CreateProductDto,
   ): Promise<CreateProductDto> {
+    CreateProductDto.size_content = [
+      ['1', '2', '3', '4', '5'],
+      ['A', 'B', 'C', 'D', 'E'],
+      ['1', '2', '3', '4', '5'],
+    ];
     return await this.productService.CreateProduct(CreateProductDto);
   }
 
@@ -37,8 +42,8 @@ export class ProductController {
   }
 
   @Get('/productlist')
-  async ShowlistProduct(): Promise<ShowlistProductDto[]> {
-    return await this.productService.ShowlistProduct();
+  async ShowlistProduct(): Promise<ProductListDto[]> {
+    return await this.productService.ProductList();
   }
 
   @Get('/search')

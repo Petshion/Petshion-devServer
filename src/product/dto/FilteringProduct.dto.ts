@@ -1,4 +1,4 @@
 import { Product } from '../schemas/product.schema';
-import { ShowlistProductDto } from './ShowlistProduct.dto';
+import { ProductListDto } from './ProductList.dto';
 
-export class FilteringProductDto extends ShowlistProductDto {}
+export class FilteringProductDto extends ProductListDto {}

@@ -8,4 +8,9 @@ export class UserService {
     @InjectModel(User.name)
     private readonly UserModel: Model<UserDocument>,
   ) {}
+  async pawmark(user): Promise<any> {
+    const pawmark = this.UserModel.findOne({ _id: user.id })
+      .populate('pawmark')
+      .exec();
+  }
 }

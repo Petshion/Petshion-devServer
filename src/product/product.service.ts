@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { CreateProductDto } from './dto/CreateProduct.dto';
 import { FindProductDto } from './dto/FindProduct.dto';
-import { ShowlistProductDto } from './dto/ShowlistProduct.dto';
+import { ProductListDto } from './dto/ProductList.dto';
 import { Product, ProductDocument } from './schemas/product.schema';
 import { FilteringProductDto } from './dto/FilteringProduct.dto';
 import { QueryFilteringProductDto } from './dto/QueryFilteringProduct.dto';
@@ -37,9 +37,9 @@ export class ProductService {
       return await e;
     }
   }
-  async ShowlistProduct(): Promise<ShowlistProductDto[]> {
+  async ProductList(): Promise<ProductListDto[]> {
     try {
-      return await this.ProductModel.find();
+      return await this.ProductModel.find({}, { title: 1, thumbnail_image: 1 });
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);
@@ -51,7 +51,10 @@ export class ProductService {
   ): Promise<FilteringProductDto[]> {
     try {
       console.log(QueryFilteringProductDto);
-      return await this.ProductModel.find(QueryFilteringProductDto);
+      return await this.ProductModel.find(QueryFilteringProductDto, {
+        title: 1,
+        thumbnail_image: 1,
+      });
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);
