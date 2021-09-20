@@ -14,8 +14,8 @@ import { Console } from 'console';
 import { AuthService } from 'src/auth/auth.service';
 import { GoogleAuthGuard } from 'src/auth/guard/google-auth.guard';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
-import { BasketListDto } from './dto/BasketList.dto';
-import { ProductIdDto } from './dto/ProductId.dto';
+import { BasketListDto, EditBasketListDto } from './dto/BasketList.dto';
+import { PawmarkListDto } from './dto/Pawmark.dto';
 import { UserService } from './user.service';
 
 @Controller()
@@ -59,12 +59,9 @@ export class UserController {
   })
   async addPawmark(
     @Request() req,
-    @Body() ProductIdDto: ProductIdDto,
+    @Body() PawmarkListDto: PawmarkListDto,
   ): Promise<any> {
-    return await this.userService.addPawmark(
-      req.user.id,
-      ProductIdDto.productId,
-    );
+    return await this.userService.addPawmark(req.user.id, PawmarkListDto);
   }
   @Delete('pawmark')
   @ApiBearerAuth()
@@ -76,12 +73,9 @@ export class UserController {
   })
   async deletePawmark(
     @Request() req,
-    @Body() ProductIdDto: ProductIdDto,
+    @Body() PawmarkListDto: PawmarkListDto,
   ): Promise<any> {
-    return await this.userService.deletePawmark(
-      req.user.id,
-      ProductIdDto.productId,
-    );
+    return await this.userService.deletePawmark(req.user.id, PawmarkListDto);
   }
   @Get('basket')
   @ApiBearerAuth()
@@ -115,11 +109,8 @@ export class UserController {
   })
   async deleteBasket(
     @Request() req,
-    @Body() ProductIdDto: ProductIdDto,
+    @Body() EditBasketListDto: EditBasketListDto,
   ): Promise<any> {
-    return await this.userService.deleteBasket(
-      req.user.id,
-      ProductIdDto.productId,
-    );
+    return await this.userService.deleteBasket(req.user.id, EditBasketListDto);
   }
 }

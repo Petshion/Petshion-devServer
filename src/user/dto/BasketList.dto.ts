@@ -31,3 +31,12 @@ export class BasketListDto extends Basket {
   })
   selected_count: number;
 }
+export class EditBasketListDto extends Basket {
+  @ApiPropertyOptional({
+    description: 'Oid of Basket',
+    type: String,
+    required: true,
+    nullable: false,
+  })
+  _id: Types.ObjectId;
+}

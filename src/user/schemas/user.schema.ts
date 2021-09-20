@@ -13,11 +13,11 @@ export class Basket {
   @Prop({ type: Types.ObjectId, ref: 'Product' })
   product_id: Types.ObjectId;
 
-  /* @Prop({ type: String })
+  @Prop({ type: String })
   title: String;
 
   @Prop({ type: String })
-  thumbnail_image: String; */
+  thumbnail_image: String;
 
   @Prop({ type: String })
   selected_color: String;
@@ -29,6 +29,17 @@ export class Basket {
   selected_count: Number;
 }
 
+@Schema()
+export class Pawmark {
+  @Prop({ type: Types.ObjectId, ref: 'Product' })
+  product_id: Types.ObjectId;
+
+  @Prop({ type: String })
+  title: String;
+
+  @Prop({ type: String })
+  thumbnail_image: String;
+}
 @Schema()
 export class User {
   @Prop({ type: String })
@@ -43,8 +54,8 @@ export class User {
   @Prop()
   basket: [Basket];
 
-  @Prop({ type: Types.ObjectId, ref: 'Product' })
-  pawmark: [Types.ObjectId];
+  @Prop()
+  pawmark: [Pawmark];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
