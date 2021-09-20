@@ -41,7 +41,7 @@ export class UserService {
   async deletePawmark(userId, PawmarkListDto: PawmarkListDto): Promise<any> {
     return await this.UserModel.findByIdAndUpdate(
       { _id: userId },
-      { $pull: { pawmark: new Types.ObjectId(PawmarkListDto.product_id) } },
+      { $pull: { product_id: new Types.ObjectId(PawmarkListDto.product_id) } },
     );
   }
   async BasketList(userId): Promise<any> {
