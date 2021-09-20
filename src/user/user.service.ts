@@ -13,7 +13,7 @@ export class UserService {
     private readonly ProductModel: Model<ProductDocument>,
   ) {}
   async PawmarkList(userId): Promise<any> {
-    return await this.UserModel.findOne(
+    return await this.UserModel.find(
       { _id: userId },
       { title: 1, thumbnail_image: 1 },
     )
@@ -23,13 +23,13 @@ export class UserService {
   async addPawmark(userId, productId): Promise<any> {
     return await this.UserModel.findByIdAndUpdate(
       { _id: userId },
-      { $addToSet: { pawmark: [new Types.ObjectId(productId)] } },
+      { $addToSet: { pawmark: new Types.ObjectId(productId) } },
     );
   }
   async deletePawmark(userId, productId): Promise<any> {
     return await this.UserModel.findByIdAndUpdate(
       { _id: userId },
-      { $pullAll: { pawmark: [new Types.ObjectId(productId)] } },
+      { $pullAll: { pawmark: new Types.ObjectId(productId) } },
     );
   }
   async BasketList(userId): Promise<any> {
