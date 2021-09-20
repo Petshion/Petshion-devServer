@@ -34,7 +34,10 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       userName: displayName,
       userImage: photos,
     };
-    if (!(await this.UserModel.findOne({ googleId: user.googleid }))) {
+    const savedUserData = await this.UserModel.findOne({
+      googleId: user.googleid,
+    });
+    if (!savedUserData) {
       const userData = await this.UserModel.create({
         googleId: user.googleid,
         username: user.userName,
@@ -42,9 +45,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       });
       userData.save();
     }
-    const savedUserData = await this.UserModel.findOne({
-      googleId: user.googleid,
-    });
+
     const Token = await this.authService.createToken(savedUserData);
     const UserData = {
       username: savedUserData.username,
