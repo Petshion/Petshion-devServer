@@ -66,10 +66,8 @@ export class UserService {
       await this.UserModel.findByIdAndUpdate(
         { _id: userId },
         {
-          $pull: {
-            pawmark: {
-              product_id: new Types.ObjectId(PawmarkListDto.product_id),
-            },
+          $pullAll: {
+            pawmark: [PawmarkListDto.product_id],
           },
         },
       );
