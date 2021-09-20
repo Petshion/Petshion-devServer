@@ -14,7 +14,10 @@ export class UserService {
     private readonly ProductModel: Model<ProductDocument>,
   ) {}
   async PawmarkList(userId): Promise<any> {
-    return await this.UserModel.find({ _id: userId }, { _id: 0, pawmark: 1 });
+    return await this.UserModel.findOne(
+      { _id: userId },
+      { _id: 0, pawmark: 1 },
+    );
   }
   async addPawmark(userId, PawmarkListDto: PawmarkListDto): Promise<any> {
     return await this.UserModel.findByIdAndUpdate(
