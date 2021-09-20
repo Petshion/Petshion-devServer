@@ -9,37 +9,37 @@ export class UserService {
     @InjectModel(User.name)
     private readonly UserModel: Model<UserDocument>,
   ) {}
-  async PawmarkList(user): Promise<any> {
+  async PawmarkList(userId): Promise<any> {
     return await this.UserModel.findOne(
-      { _id: user.id },
+      { _id: userId },
       { title: 1, thumbnail_image: 1 },
     )
       .populate('pawmark')
       .exec();
   }
-  async addPawmark(user, productId): Promise<any> {
+  async addPawmark(userId, productId): Promise<any> {
     return await this.UserModel.findByIdAndUpdate(
-      { _id: user.id },
+      { _id: userId },
       { $addToSet: { pawmark: [new Types.ObjectId(productId)] } },
     );
   }
-  async deletePawmark(user, productId): Promise<any> {
+  async deletePawmark(userId, productId): Promise<any> {
     return await this.UserModel.findByIdAndUpdate(
-      { _id: user.id },
+      { _id: userId },
       { $pullAll: { pawmark: [new Types.ObjectId(productId)] } },
     );
   }
-  async BasketList(user): Promise<any> {
-    return await this.UserModel.findOne({ _id: user.id }, { basket: 1 })
+  async BasketList(userId): Promise<any> {
+    return await this.UserModel.findOne({ _id: userId }, { basket: 1 })
       .populate({
         path: 'basket',
         populate: { path: 'product_id', select: 'title thumbnail_image' },
       })
       .exec();
   }
-  async addBasket(user, BasketListDto: BasketListDto): Promise<any> {
+  async addBasket(userId, BasketListDto: BasketListDto): Promise<any> {
     return await this.UserModel.findByIdAndUpdate(
-      { _id: user.id },
+      { _id: userId },
       {
         $addToSet: {
           basket: {
@@ -53,9 +53,9 @@ export class UserService {
       },
     );
   }
-  async deleteBasket(user, ProductId): Promise<any> {
+  async deleteBasket(userId, ProductId): Promise<any> {
     return await this.UserModel.findByIdAndUpdate(
-      { _id: user.id },
+      { _id: userId },
       { $pull: { basket: { _id: new Types.ObjectId(ProductId) } } },
     );
   }

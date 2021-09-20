@@ -44,7 +44,8 @@ export class UserController {
     description: '받은 엑세스토큰의 id에 저장되어있는 pawmark를 모두 조회한다.',
   })
   async PawmarkList(@Request() req): Promise<any> {
-    return await this.userService.PawmarkList(req.user);
+    console.log(req.user.id);
+    return await this.userService.PawmarkList(req.user.id);
   }
   @Post('pawmark')
   @ApiBearerAuth()
@@ -53,7 +54,7 @@ export class UserController {
     description: '받은 엑세스토큰의 id에 해당 상품의 oid를 pawmark에 추가한다.',
   })
   async addPawmark(@Request() req, @Body() productId): Promise<any> {
-    return await this.userService.addPawmark(req.user, productId);
+    return await this.userService.addPawmark(req.user.id, productId);
   }
   @Delete('pawmark')
   @ApiBearerAuth()
@@ -63,7 +64,7 @@ export class UserController {
       '받은 엑세스토큰의 id에 해당 상품의 oid를 pawmark에서 삭제한다.',
   })
   async deletePawmark(@Request() req, @Body() productId): Promise<any> {
-    return await this.userService.deletePawmark(req.user, productId);
+    return await this.userService.deletePawmark(req.user.id, productId);
   }
   @Get('basket')
   @ApiBearerAuth()
@@ -72,7 +73,7 @@ export class UserController {
     description: '받은 엑세스토큰의 id에 저장되어있는 basket을 모두 조회한다.',
   })
   async BasketList(@Request() req): Promise<any> {
-    return await this.userService.BasketList(req.user);
+    return await this.userService.BasketList(req.user.id);
   }
   @Post('basket')
   @ApiBearerAuth()
@@ -84,7 +85,7 @@ export class UserController {
     @Request() req,
     @Body() BasketListDto: BasketListDto,
   ): Promise<any> {
-    return await this.userService.addBasket(req.user, BasketListDto);
+    return await this.userService.addBasket(req.user.id, BasketListDto);
   }
   @Delete('basket')
   @ApiBearerAuth()
@@ -93,6 +94,6 @@ export class UserController {
     description: '받은 엑세스토큰의 id에 해당 상품을 basket에서 삭제한다.',
   })
   async deleteBasket(@Request() req, @Body() productId): Promise<any> {
-    return await this.userService.deleteBasket(req.user, productId);
+    return await this.userService.deleteBasket(req.user.id, productId);
   }
 }
