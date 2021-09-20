@@ -14,6 +14,12 @@ export class Basket {
   product_id: Types.ObjectId;
 
   @Prop({ type: String })
+  title: String;
+
+  @Prop({ type: String })
+  thumbnail_image: String;
+
+  @Prop({ type: String })
   selected_color: String;
 
   @Prop({ type: String })

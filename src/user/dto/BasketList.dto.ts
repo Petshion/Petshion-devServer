@@ -4,7 +4,7 @@ import { Basket } from '../schemas/user.schema';
 export class BasketListDto extends Basket {
   @ApiPropertyOptional({
     description: 'Oid of Product',
-    type: Types.ObjectId,
+    type: String,
     required: true,
     nullable: false,
   })
