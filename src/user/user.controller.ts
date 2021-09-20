@@ -9,7 +9,7 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Console } from 'console';
 import { AuthService } from 'src/auth/auth.service';
 import { GoogleAuthGuard } from 'src/auth/guard/google-auth.guard';
@@ -17,6 +17,7 @@ import { BasketListDto } from './dto/BasketList.dto';
 import { UserService } from './user.service';
 
 @Controller()
+@ApiTags('User')
 export class UserController {
   constructor(
     private readonly userService: UserService,
