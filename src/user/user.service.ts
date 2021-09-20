@@ -67,9 +67,7 @@ export class UserService {
         { _id: userId },
         {
           $pullAll: {
-            pawmark: {
-              product_id: [new Types.ObjectId(PawmarkListDto.product_id)],
-            },
+            pawmark: [new Types.ObjectId(PawmarkListDto.product_id)],
           },
         },
       );
