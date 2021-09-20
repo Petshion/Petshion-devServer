@@ -15,6 +15,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { GoogleAuthGuard } from 'src/auth/guard/google-auth.guard';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { BasketListDto } from './dto/BasketList.dto';
+import { ProductIdDto } from './dto/ProductId.dto';
 import { UserService } from './user.service';
 
 @Controller()
@@ -58,9 +59,12 @@ export class UserController {
   })
   async addPawmark(
     @Request() req,
-    @Body() productId: { productId: String },
+    @Body() ProductIdDto: ProductIdDto,
   ): Promise<any> {
-    return await this.userService.addPawmark(req.user.id, productId);
+    return await this.userService.addPawmark(
+      req.user.id,
+      ProductIdDto.productId,
+    );
   }
   @Delete('pawmark')
   @ApiBearerAuth()
@@ -72,9 +76,12 @@ export class UserController {
   })
   async deletePawmark(
     @Request() req,
-    @Body() productId: { productId: String },
+    @Body() ProductIdDto: ProductIdDto,
   ): Promise<any> {
-    return await this.userService.deletePawmark(req.user.id, productId);
+    return await this.userService.deletePawmark(
+      req.user.id,
+      ProductIdDto.productId,
+    );
   }
   @Get('basket')
   @ApiBearerAuth()
@@ -106,7 +113,13 @@ export class UserController {
     summary: '장바구니 삭제',
     description: '받은 엑세스토큰의 id에 해당 상품을 basket에서 삭제한다.',
   })
-  async deleteBasket(@Request() req, @Body() productId: String): Promise<any> {
-    return await this.userService.deleteBasket(req.user.id, productId);
+  async deleteBasket(
+    @Request() req,
+    @Body() ProductIdDto: ProductIdDto,
+  ): Promise<any> {
+    return await this.userService.deleteBasket(
+      req.user.id,
+      ProductIdDto.productId,
+    );
   }
 }

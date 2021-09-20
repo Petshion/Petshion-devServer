@@ -13,11 +13,11 @@ export class Basket {
   @Prop({ type: Types.ObjectId, ref: 'Product' })
   product_id: Types.ObjectId;
 
-  @Prop({ type: String })
+  /* @Prop({ type: String })
   title: String;
 
   @Prop({ type: String })
-  thumbnail_image: String;
+  thumbnail_image: String; */
 
   @Prop({ type: String })
   selected_color: String;

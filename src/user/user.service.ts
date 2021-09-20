@@ -13,11 +13,8 @@ export class UserService {
     private readonly ProductModel: Model<ProductDocument>,
   ) {}
   async PawmarkList(userId): Promise<any> {
-    return await this.UserModel.find(
-      { _id: userId },
-      { title: 1, thumbnail_image: 1 },
-    )
-      .populate('pawmark')
+    return await this.UserModel.find({ _id: userId }, { pawmark: 1, _id: 0 })
+      .populate('pawmark', 'title thumbnail_image')
       .exec();
   }
   async addPawmark(userId, productId): Promise<any> {
@@ -33,7 +30,7 @@ export class UserService {
     );
   }
   async BasketList(userId): Promise<any> {
-    return await this.UserModel.findOne({ _id: userId }, { basket: 1 })
+    return await this.UserModel.findOne({ _id: userId }, { basket: 1, _id: 0 })
       .populate({
         path: 'basket',
         populate: { path: 'product_id', select: 'title thumbnail_image' },
@@ -48,12 +45,6 @@ export class UserService {
           basket: {
             _id: new Types.ObjectId(),
             product_id: new Types.ObjectId(BasketListDto.product_id),
-            title: (
-              await this.ProductModel.findOne({ _id: BasketListDto.product_id })
-            ).title,
-            thumbnail_image: (
-              await this.ProductModel.findOne({ _id: BasketListDto.product_id })
-            ).thumbnail_image,
             selected_color: BasketListDto.selected_color,
             selected_size: BasketListDto.selected_size,
             selected_count: BasketListDto.selected_count,
