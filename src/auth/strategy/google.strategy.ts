@@ -28,11 +28,11 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     profile: any,
     done: VerifyCallback,
   ) {
-    const { displayName, id, photos } = profile;
+    const { displayName, id, _json } = profile;
     const user = {
       googleid: id,
       userName: displayName,
-      userImage: photos,
+      userImage: _json.picture,
     };
     const savedUserData = await this.UserModel.findOne({
       googleId: user.googleid,
