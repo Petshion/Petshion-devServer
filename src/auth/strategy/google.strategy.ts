@@ -5,12 +5,14 @@ import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from 'src/user/schemas/user.schema';
 import { Model } from 'mongoose';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(
     @InjectModel(User.name) private readonly UserModel: Model<UserDocument>,
     private readonly ConfigService: ConfigService,
+    private readonly authService: AuthService,
   ) {
     super({
       clientID: ConfigService.get<string>('GOOGLE_CLIENT_ID'),
@@ -32,10 +34,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       userName: displayName,
       userImage: photos,
     };
-    const savedUserData = await this.UserModel.findOne({
-      googleId: user.googleid,
-    });
-    if (!savedUserData) {
+    if (!(await this.UserModel.findOne({ googleId: user.googleid }))) {
       const userData = await this.UserModel.create({
         googleId: user.googleid,
         username: user.userName,
@@ -43,7 +42,15 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       });
       userData.save();
     }
-    console.log(savedUserData);
-    done(null, savedUserData);
+    const savedUserData = await this.UserModel.findOne({
+      googleId: user.googleid,
+    });
+    const Token = this.authService.createToken(savedUserData);
+    const UserData = {
+      savedUserData,
+      Token,
+    };
+    console.log(UserData);
+    done(null, UserData);
   }
 }
