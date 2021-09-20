@@ -6,7 +6,6 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { ObjectId } from 'mongoose';
 import { CreateProductDto } from './dto/CreateProduct.dto';
 import { QueryFilteringProductDto } from './dto/QueryFilteringProduct.dto';
 import { FilteringProductDto } from './dto/FilteringProduct.dto';

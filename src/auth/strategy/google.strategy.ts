@@ -15,7 +15,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     super({
       clientID: ConfigService.get<string>('GOOGLE_CLIENT_ID'),
       clientSecret: ConfigService.get<string>('GOOGLE_SECRET'),
-      callbackURL: 'http://localhost:3000/auth/google/PetshionOauth',
+      callbackURL: 'https://petshion-dev.herokuapp/auth/google/PetshionOauth',
       scope: ['email', 'profile'],
     });
   }
