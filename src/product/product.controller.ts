@@ -36,7 +36,7 @@ export class ProductController {
     return await this.productService.FindByProductId(product_id.product_id);
   }
 
-  @Get('/')
+  @Get('/productlist')
   async ShowlistProduct(): Promise<ShowlistProductDto[]> {
     return await this.productService.ShowlistProduct();
   }
