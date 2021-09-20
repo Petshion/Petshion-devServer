@@ -37,7 +37,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     const savedUserData = await this.UserModel.findOne({
       googleId: user.googleid,
     });
-    if (!savedUserData) {
+    if (!(await this.UserModel.findOne({ googleId: user.googleid }))) {
       const userData = await this.UserModel.create({
         googleId: user.googleid,
         username: user.userName,
