@@ -19,6 +19,10 @@ export class Product {
   images: string[];
 
   @Prop({ type: String })
+  @ApiProperty({ description: 'AR Image url' })
+  AR_image: string;
+
+  @Prop({ type: String })
   @ApiProperty({ description: 'Brand_name' })
   brand_name: string;
 
