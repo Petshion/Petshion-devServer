@@ -47,10 +47,11 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     });
     const Token = await this.authService.createToken(savedUserData);
     const UserData = {
-      savedUserData,
-      Token,
+      username: savedUserData.username,
+      image: savedUserData.image,
+      token: Token,
     };
-    console.log('Userdata=' + JSON.stringify(UserData));
+    console.log(JSON.stringify(UserData));
     done(null, UserData);
   }
 }

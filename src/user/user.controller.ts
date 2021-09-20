@@ -6,6 +6,7 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
+import { Console } from 'console';
 import { AuthService } from 'src/auth/auth.service';
 import { GoogleAuthGuard } from 'src/auth/guard/google-auth.guard';
 import { UserService } from './user.service';
@@ -25,6 +26,7 @@ export class UserController {
   @UseGuards(GoogleAuthGuard)
   @Redirect('OAuthLogin://login?user=')
   async googleauthRedirect(@Request() req) {
+    console.log(JSON.stringify(req.user));
     return {
       url: 'OAuthLogin://login?user=' + JSON.stringify(req.user),
     };
