@@ -4,7 +4,7 @@ import { response } from 'express';
 import { Model, Mongoose, Types } from 'mongoose';
 import { Product, ProductDocument } from 'src/product/schemas/product.schema';
 import { BasketListDto, EditBasketListDto } from './dto/BasketList.dto';
-import { PawmarkListDto } from './dto/Pawmark.dto';
+import { PawmarkDto } from './dto/Pawmark.dto';
 import { User, UserDocument } from './schemas/user.schema';
 @Injectable()
 export class UserService {
@@ -26,25 +26,22 @@ export class UserService {
       return await e;
     }
   }
-  async addPawmark(
-    userId,
-    PawmarkListDto: PawmarkListDto,
-  ): Promise<HttpStatus> {
+  async addPawmark(userId, PawmarkDto: PawmarkDto): Promise<HttpStatus> {
     try {
       await this.UserModel.findByIdAndUpdate(
         { _id: userId },
         {
           $addToSet: {
             pawmark: {
-              product_id: PawmarkListDto.product_id,
+              product_id: PawmarkDto.product_id,
               title: (
                 await this.ProductModel.findOne({
-                  _id: PawmarkListDto.product_id,
+                  _id: PawmarkDto.product_id,
                 })
               ).title,
               thumbnail_image: (
                 await this.ProductModel.findOne({
-                  _id: PawmarkListDto.product_id,
+                  _id: PawmarkDto.product_id,
                 })
               ).thumbnail_image,
             },
@@ -58,16 +55,13 @@ export class UserService {
       return await e;
     }
   }
-  async deletePawmark(
-    userId,
-    PawmarkListDto: PawmarkListDto,
-  ): Promise<HttpStatus> {
+  async deletePawmark(userId, PawmarkDto: PawmarkDto): Promise<HttpStatus> {
     try {
       await this.UserModel.findByIdAndUpdate(
         { _id: userId },
         {
-          $pullAll: {
-            pawmark: [PawmarkListDto.product_id],
+          $pull: {
+            pawmark: { product_id: PawmarkDto.product_id },
           },
         },
       );

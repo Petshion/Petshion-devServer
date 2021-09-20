@@ -2,7 +2,7 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 import { Pawmark } from '../schemas/user.schema';
 
-export class PawmarkListDto extends Pawmark {
+export class PawmarkDto extends Pawmark {
   @ApiPropertyOptional({
     description: 'Oid of Product',
     type: String,
