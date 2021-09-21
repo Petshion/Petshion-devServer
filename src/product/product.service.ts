@@ -20,7 +20,7 @@ export class ProductService {
   ): Promise<CreateProductDto> {
     try {
       const createdProduct = await this.ProductModel.create(CreateProductDto);
-      return createdProduct.save();
+      return await createdProduct.save();
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);
