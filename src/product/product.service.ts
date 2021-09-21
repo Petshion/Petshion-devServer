@@ -71,9 +71,9 @@ export class ProductService {
               { _id: UserId },
               {
                 pawmark: {
-                  product_id: foundProduct[0]._id,
-                  title: foundProduct[0].title,
-                  thumbnail_image: foundProduct[0].thumbnail_image,
+                  product_id: foundProduct[i]._id,
+                  title: foundProduct[i].title,
+                  thumbnail_image: foundProduct[i].thumbnail_image,
                 },
               },
             ],
