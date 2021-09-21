@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
 import {
   ApiParam,
   ApiProperty,
@@ -12,7 +12,7 @@ import { FilteringProductDto } from './dto/FilteringProduct.dto';
 import { FindProductDto } from './dto/FindProduct.dto';
 import { ProductListDto } from './dto/ProductList.dto';
 import { ProductService } from './product.service';
-import { request } from 'express';
+import { Request } from 'express';
 
 @Controller()
 @ApiTags('Product')
@@ -50,8 +50,9 @@ export class ProductController {
   @Get('/search')
   async FilteringProduct(
     @Query() QueryFilteringProductDto: QueryFilteringProductDto,
+    @Req() req: Request,
   ): Promise<FilteringProductDto[]> {
-    console.log(request.query);
-    return await this.productService.FilteringProduct(request.query);
+    console.log(req.query);
+    return await this.productService.FilteringProduct(req.query);
   }
 }
