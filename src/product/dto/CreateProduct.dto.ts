@@ -11,7 +11,7 @@ export class CreateProductDto extends Product {
 
   price: number;
 
-  breed: string;
+  kind: string;
 
   content: string;
 

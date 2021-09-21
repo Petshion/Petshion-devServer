@@ -32,7 +32,7 @@ export class Product {
 
   @Prop({ type: String })
   @ApiProperty({ description: 'Breed' })
-  breed: string;
+  kind: string;
 
   @Prop({ type: String })
   @ApiProperty({ description: 'Content' })
