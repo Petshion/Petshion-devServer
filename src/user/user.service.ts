@@ -55,7 +55,7 @@ export class UserService {
       return await e;
     }
   }
-  async deletePawmark(userId, PawmarkDto: PawmarkDto): Promise<HttpStatus> {
+  async deletePawmark(userId, PawmarkDto: PawmarkDto): Promise<any> {
     try {
       await this.UserModel.findByIdAndUpdate(
         { _id: userId },
@@ -65,7 +65,7 @@ export class UserService {
           },
         },
       );
-      return await HttpStatus.OK;
+      return await { product_id: PawmarkDto.product_id };
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);
@@ -120,7 +120,7 @@ export class UserService {
   async deleteBasket(
     userId,
     EditBasketListDto: EditBasketListDto,
-  ): Promise<HttpStatus> {
+  ): Promise<any> {
     try {
       await this.UserModel.findByIdAndUpdate(
         { _id: userId },
@@ -128,7 +128,7 @@ export class UserService {
           $pull: { basket: { _id: new Types.ObjectId(EditBasketListDto._id) } },
         },
       );
-      return await HttpStatus.OK;
+      return await { _id: EditBasketListDto._id };
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);
