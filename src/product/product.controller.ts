@@ -23,11 +23,6 @@ export class ProductController {
   async CreateProduct(
     @Body() CreateProductDto: CreateProductDto,
   ): Promise<CreateProductDto> {
-    CreateProductDto.size_content = [
-      ['1', '2', '3', '4', '5'],
-      ['A', 'B', 'C', 'D', 'E'],
-      ['1', '2', '3', '4', '5'],
-    ];
     return await this.productService.CreateProduct(CreateProductDto);
   }
 
