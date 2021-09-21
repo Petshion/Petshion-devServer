@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { response } from 'express';
-import { Model, Mongoose, Types } from 'mongoose';
+import { Model, Mongoose, ObjectId, Types } from 'mongoose';
 import { Product, ProductDocument } from 'src/product/schemas/product.schema';
 import { BasketListDto, EditBasketListDto } from './dto/BasketList.dto';
 import { PawmarkDto } from './dto/Pawmark.dto';
@@ -19,6 +19,10 @@ export class UserService {
       return await this.UserModel.findOne(
         { _id: userId },
         { _id: 0, pawmark: 1 },
+        {},
+        (err, data) => {
+          if (err) throw err;
+        },
       );
     } catch (e) {
       console.error(e);
@@ -47,6 +51,9 @@ export class UserService {
             },
           },
         },
+        (err, data) => {
+          if (err) throw err;
+        },
       );
       return await HttpStatus.CREATED;
     } catch (e) {
@@ -55,7 +62,7 @@ export class UserService {
       return await e;
     }
   }
-  async deletePawmark(userId, PawmarkDto: PawmarkDto): Promise<HttpStatus> {
+  async deletePawmark(userId, PawmarkDto: PawmarkDto): Promise<any> {
     try {
       await this.UserModel.findByIdAndUpdate(
         { _id: userId },
@@ -64,8 +71,11 @@ export class UserService {
             pawmark: { product_id: PawmarkDto.product_id },
           },
         },
+        (err, data) => {
+          if (err) throw err;
+        },
       );
-      return await HttpStatus.OK;
+      return await { product_id: PawmarkDto.product_id };
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);
@@ -77,6 +87,10 @@ export class UserService {
       return await this.UserModel.findOne(
         { _id: userId },
         { _id: 0, basket: 1 },
+        {},
+        (err, data) => {
+          if (err) throw err;
+        },
       );
     } catch (e) {
       console.error(e);
@@ -109,6 +123,9 @@ export class UserService {
             },
           },
         },
+        (err, data) => {
+          if (err) throw err;
+        },
       );
       return await HttpStatus.CREATED;
     } catch (e) {
@@ -120,15 +137,18 @@ export class UserService {
   async deleteBasket(
     userId,
     EditBasketListDto: EditBasketListDto,
-  ): Promise<HttpStatus> {
+  ): Promise<any> {
     try {
       await this.UserModel.findByIdAndUpdate(
         { _id: userId },
         {
           $pull: { basket: { _id: new Types.ObjectId(EditBasketListDto._id) } },
         },
+        (err, data) => {
+          if (err) throw err;
+        },
       );
-      return await HttpStatus.OK;
+      return await { _id: EditBasketListDto._id };
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);

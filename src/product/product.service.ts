@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { CreateProductDto } from './dto/CreateProduct.dto';
@@ -30,7 +30,11 @@ export class ProductService {
   async FindByProductId(product_id: string): Promise<FindProductDto> {
     try {
       const foundProduct = await this.ProductModel.findById(product_id);
-      return foundProduct;
+      if (!foundProduct)
+        throw new NotFoundException({
+          message: '해당 상품이 존재하지 않습니다.',
+        });
+      return await foundProduct;
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);
@@ -39,7 +43,14 @@ export class ProductService {
   }
   async ProductList(): Promise<ProductListDto[]> {
     try {
-      return await this.ProductModel.find({}, { title: 1, thumbnail_image: 1 });
+      return await this.ProductModel.find(
+        {},
+        { title: 1, thumbnail_image: 1 },
+        {},
+        (err, data) => {
+          if (err) throw err;
+        },
+      );
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);
@@ -51,10 +62,17 @@ export class ProductService {
   ): Promise<FilteringProductDto[]> {
     try {
       console.log(QueryFilteringProductDto);
-      return await this.ProductModel.find(QueryFilteringProductDto, {
-        title: 1,
-        thumbnail_image: 1,
-      });
+      return await this.ProductModel.find(
+        QueryFilteringProductDto,
+        {
+          title: 1,
+          thumbnail_image: 1,
+        },
+        {},
+        (err, data) => {
+          if (err) throw err;
+        },
+      );
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);
