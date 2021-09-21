@@ -7,7 +7,7 @@ import { ProductListDto } from './dto/ProductList.dto';
 import { Product, ProductDocument } from './schemas/product.schema';
 import { FilteringProductDto } from './dto/FilteringProduct.dto';
 import { QueryFilteringProductDto } from './dto/QueryFilteringProduct.dto';
-
+import MongoQS from 'mongo-querystring';
 @Injectable()
 export class ProductService {
   constructor(
@@ -50,12 +50,12 @@ export class ProductService {
       return await e;
     }
   }
-  async FilteringProduct(
-    QueryFilteringProductDto: QueryFilteringProductDto,
-  ): Promise<FilteringProductDto[]> {
+  async FilteringProduct(Query): Promise<FilteringProductDto[]> {
     try {
-      console.log(QueryFilteringProductDto);
-      return await this.ProductModel.find(QueryFilteringProductDto, {
+      var qs = new MongoQS();
+      var query = qs.parse(Query);
+      console.log(query);
+      return await this.ProductModel.find(query, {
         title: 1,
         thumbnail_image: 1,
       });

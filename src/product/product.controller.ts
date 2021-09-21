@@ -12,6 +12,7 @@ import { FilteringProductDto } from './dto/FilteringProduct.dto';
 import { FindProductDto } from './dto/FindProduct.dto';
 import { ProductListDto } from './dto/ProductList.dto';
 import { ProductService } from './product.service';
+import { request } from 'express';
 
 @Controller()
 @ApiTags('Product')
@@ -50,6 +51,6 @@ export class ProductController {
   async FilteringProduct(
     @Query() QueryFilteringProductDto: QueryFilteringProductDto,
   ): Promise<FilteringProductDto[]> {
-    return await this.productService.FilteringProduct(QueryFilteringProductDto);
+    return await this.productService.FilteringProduct(request.query);
   }
 }

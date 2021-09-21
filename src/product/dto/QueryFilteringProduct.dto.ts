@@ -2,12 +2,12 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class QueryFilteringProductDto {
   @ApiPropertyOptional({
-    description: 'breed of an animal',
+    description: 'kind of an animal',
     type: [String],
     required: true,
     nullable: false,
   })
-  breed?: string;
+  kind?: string;
 
   @ApiPropertyOptional({
     description: 'color of an animal',
