@@ -6,16 +6,12 @@ import { FindProductDto } from './dto/FindProduct.dto';
 import { ProductListDto } from './dto/ProductList.dto';
 import { Product, ProductDocument } from './schemas/product.schema';
 import { FilteringProductDto } from './dto/FilteringProduct.dto';
-import { QueryFilteringProductDto } from './dto/QueryFilteringProduct.dto';
-import { User, UserDocument } from 'src/user/schemas/user.schema';
 const MongoQs = require('mongo-querystring');
 @Injectable()
 export class ProductService {
   constructor(
     @InjectModel(Product.name)
     private readonly ProductModel: Model<ProductDocument>,
-    @InjectModel(User.name)
-    private readonly UserModel: Model<UserDocument>,
   ) {}
 
   async CreateProduct(
@@ -44,46 +40,9 @@ export class ProductService {
       return await e;
     }
   }
-  async ProductList(UserId): Promise<ProductListDto[]> {
+  async ProductList(): Promise<ProductListDto[]> {
     try {
-      let foundProduct = await this.ProductModel.find(
-        {},
-        { title: 1, thumbnail_image: 1 },
-      );
-      console.log(foundProduct[0]);
-      console.log(
-        await this.UserModel.findOne({
-          $and: [
-            { _id: UserId },
-            {
-              pawmark: {
-                product_id: foundProduct[0]._id,
-                title: foundProduct[0].title,
-                thumbnail_image: foundProduct[0].thumbnail_image,
-              },
-            },
-          ],
-        }),
-      );
-      for (let i = 0; i < foundProduct.length; i++) {
-        if (
-          (await this.UserModel.findOne({
-            $and: [
-              { _id: UserId },
-              {
-                pawmark: {
-                  product_id: foundProduct[i]._id,
-                  title: foundProduct[i].title,
-                  thumbnail_image: foundProduct[i].thumbnail_image,
-                },
-              },
-            ],
-          })) !== null
-        ) {
-          foundProduct[i].isPawmark = true;
-        } else foundProduct[i].isPawmark = false;
-      }
-      return await foundProduct;
+      return await this.ProductModel.find({}, { title: 1, thumbnail_image: 1 });
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);

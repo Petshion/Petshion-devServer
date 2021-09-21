@@ -20,7 +20,7 @@ export class Basket {
   thumbnail_image: String;
 
   @Prop({ type: Number })
-  proce: Number;
+  price: Number;
 
   @Prop({ type: String })
   color: String;

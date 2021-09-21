@@ -1,15 +1,5 @@
+import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
 import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Query,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
-import {
-  ApiBearerAuth,
   ApiParam,
   ApiProperty,
   ApiPropertyOptional,
@@ -23,7 +13,6 @@ import { FindProductDto } from './dto/FindProduct.dto';
 import { ProductListDto } from './dto/ProductList.dto';
 import { ProductService } from './product.service';
 import { Request } from 'express';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 
 @Controller()
 @ApiTags('Product')
@@ -49,10 +38,8 @@ export class ProductController {
   }
 
   @Get('/product')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  async ShowlistProduct(@Req() req): Promise<ProductListDto[]> {
-    return await this.productService.ProductList(req.user.id);
+  async ShowlistProduct(): Promise<ProductListDto[]> {
+    return await this.productService.ProductList();
   }
 
   @Get('/search')
