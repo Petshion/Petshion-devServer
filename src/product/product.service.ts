@@ -7,7 +7,7 @@ import { ProductListDto } from './dto/ProductList.dto';
 import { Product, ProductDocument } from './schemas/product.schema';
 import { FilteringProductDto } from './dto/FilteringProduct.dto';
 import { QueryFilteringProductDto } from './dto/QueryFilteringProduct.dto';
-import MongoQS from 'mongo-querystring';
+const MongoQs = require('mongo-querystring');
 @Injectable()
 export class ProductService {
   constructor(
@@ -52,7 +52,7 @@ export class ProductService {
   }
   async FilteringProduct(Query): Promise<FilteringProductDto[]> {
     try {
-      var qs = new MongoQS();
+      var qs = new MongoQs();
       var query = qs.parse(Query);
       console.log(query);
       return await this.ProductModel.find(query, {
