@@ -50,6 +50,7 @@ export class ProductService {
         {},
         { title: 1, thumbnail_image: 1 },
       );
+      console.log(foundProduct[0]);
       console.log(
         await this.UserModel.findOne({
           $and: [

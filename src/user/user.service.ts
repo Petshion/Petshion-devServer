@@ -103,6 +103,11 @@ export class UserService {
                   _id: BasketListDto.product_id,
                 })
               ).thumbnail_image,
+              price: (
+                await this.ProductModel.findOne({
+                  _id: BasketListDto.product_id,
+                })
+              ).price,
               color: BasketListDto.color,
               size: BasketListDto.size,
               count: BasketListDto.count,

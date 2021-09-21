@@ -19,6 +19,9 @@ export class Basket {
   @Prop({ type: String })
   thumbnail_image: String;
 
+  @Prop({ type: Number })
+  proce: Number;
+
   @Prop({ type: String })
   color: String;
 
