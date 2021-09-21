@@ -50,17 +50,17 @@ export class ProductService {
         {},
         { title: 1, thumbnail_image: 1 },
       );
+      console.log(
+        await this.UserModel.findOne({
+          $and: [{ _id: UserId }, { pawmark: foundProduct[0]._id }],
+        }),
+      );
       for (let i = 0; i < foundProduct.length; i++) {
         if (
-          (await this.UserModel.findOne({
+          await this.UserModel.findOne({
             $and: [{ _id: UserId }, { pawmark: foundProduct[i]._id }],
-          })) !== null
+          })
         ) {
-          console.log(
-            await this.UserModel.findOne({
-              $and: [{ _id: UserId }, { pawmark: foundProduct[i]._id }],
-            }),
-          );
           foundProduct[i].isPawmark = true;
         } else foundProduct[i].isPawmark = false;
       }
