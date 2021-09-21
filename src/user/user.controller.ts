@@ -9,7 +9,12 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBasicAuth,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Console } from 'console';
 import { AuthService } from 'src/auth/auth.service';
 import { GoogleAuthGuard } from 'src/auth/guard/google-auth.guard';
@@ -39,7 +44,7 @@ export class UserController {
     };
   }
   @Get('pawmark')
-  @ApiBearerAuth()
+  @ApiBasicAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '모든 발바닥마크 요청',
@@ -50,7 +55,7 @@ export class UserController {
     return await this.userService.PawmarkList(req.user.id);
   }
   @Post('pawmark')
-  @ApiBearerAuth()
+  @ApiBasicAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '발바닥마크 추가',
@@ -63,7 +68,7 @@ export class UserController {
     return await this.userService.addPawmark(req.user.id, PawmarkListDto);
   }
   @Delete('pawmark')
-  @ApiBearerAuth()
+  @ApiBasicAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '발바닥마크 삭제',
@@ -77,7 +82,7 @@ export class UserController {
     return await this.userService.deletePawmark(req.user.id, PawmarkListDto);
   }
   @Get('basket')
-  @ApiBearerAuth()
+  @ApiBasicAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '모든 장바구니 요청',
@@ -87,7 +92,7 @@ export class UserController {
     return await this.userService.BasketList(req.user.id);
   }
   @Post('basket')
-  @ApiBearerAuth()
+  @ApiBasicAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '장바구니 추가',
@@ -100,7 +105,7 @@ export class UserController {
     return await this.userService.addBasket(req.user.id, BasketListDto);
   }
   @Delete('basket')
-  @ApiBearerAuth()
+  @ApiBasicAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '장바구니 삭제',
