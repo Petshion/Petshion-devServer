@@ -7,7 +7,7 @@ export class QueryFilteringProductDto {
     required: true,
     nullable: false,
   })
-  breed?: string;
+  breed?: any;
 
   @ApiPropertyOptional({
     description: 'color of an animal',
@@ -15,7 +15,7 @@ export class QueryFilteringProductDto {
     required: true,
     nullable: false,
   })
-  color?: string;
+  color?: any;
 
   @ApiPropertyOptional({
     description: 'size of an animal',
@@ -23,5 +23,5 @@ export class QueryFilteringProductDto {
     required: true,
     nullable: false,
   })
-  size?: string;
+  size?: any;
 }
