@@ -15,21 +15,21 @@ export class BasketListDto extends Basket {
     type: String,
     required: false,
   })
-  selected_color: string;
+  color: string;
 
   @ApiPropertyOptional({
     description: 'Size of Product',
     type: String,
     required: false,
   })
-  selected_size: string;
+  size: string;
 
   @ApiPropertyOptional({
     description: 'Count of Product',
     type: Number,
     required: false,
   })
-  selected_count: number;
+  count: number;
 }
 export class EditBasketListDto extends Basket {
   @ApiPropertyOptional({

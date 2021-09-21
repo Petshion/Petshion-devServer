@@ -103,9 +103,9 @@ export class UserService {
                   _id: BasketListDto.product_id,
                 })
               ).thumbnail_image,
-              selected_color: BasketListDto.selected_color,
-              selected_size: BasketListDto.selected_size,
-              selected_count: BasketListDto.selected_count,
+              color: BasketListDto.color,
+              size: BasketListDto.size,
+              count: BasketListDto.count,
             },
           },
         },

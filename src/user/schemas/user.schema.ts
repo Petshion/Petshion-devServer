@@ -20,13 +20,13 @@ export class Basket {
   thumbnail_image: String;
 
   @Prop({ type: String })
-  selected_color: String;
+  color: String;
 
   @Prop({ type: String })
-  selected_size: String;
+  size: String;
 
   @Prop({ type: Number })
-  selected_count: Number;
+  count: Number;
 }
 
 @Schema()
