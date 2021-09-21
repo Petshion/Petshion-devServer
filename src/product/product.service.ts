@@ -43,14 +43,7 @@ export class ProductService {
   }
   async ProductList(): Promise<ProductListDto[]> {
     try {
-      return await this.ProductModel.find(
-        {},
-        { title: 1, thumbnail_image: 1 },
-        {},
-        (err, data) => {
-          if (err) throw err;
-        },
-      );
+      return await this.ProductModel.find({}, { title: 1, thumbnail_image: 1 });
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);
@@ -62,17 +55,10 @@ export class ProductService {
   ): Promise<FilteringProductDto[]> {
     try {
       console.log(QueryFilteringProductDto);
-      return await this.ProductModel.find(
-        QueryFilteringProductDto,
-        {
-          title: 1,
-          thumbnail_image: 1,
-        },
-        {},
-        (err, data) => {
-          if (err) throw err;
-        },
-      );
+      return await this.ProductModel.find(QueryFilteringProductDto, {
+        title: 1,
+        thumbnail_image: 1,
+      });
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);

@@ -19,10 +19,6 @@ export class UserService {
       return await this.UserModel.findOne(
         { _id: userId },
         { _id: 0, pawmark: 1 },
-        {},
-        (err, data) => {
-          if (err) throw err;
-        },
       );
     } catch (e) {
       console.error(e);
@@ -51,9 +47,6 @@ export class UserService {
             },
           },
         },
-        (err, data) => {
-          if (err) throw err;
-        },
       );
       return await HttpStatus.CREATED;
     } catch (e) {
@@ -71,9 +64,6 @@ export class UserService {
             pawmark: { product_id: PawmarkDto.product_id },
           },
         },
-        (err, data) => {
-          if (err) throw err;
-        },
       );
       return await { product_id: PawmarkDto.product_id };
     } catch (e) {
@@ -87,10 +77,6 @@ export class UserService {
       return await this.UserModel.findOne(
         { _id: userId },
         { _id: 0, basket: 1 },
-        {},
-        (err, data) => {
-          if (err) throw err;
-        },
       );
     } catch (e) {
       console.error(e);
@@ -123,9 +109,6 @@ export class UserService {
             },
           },
         },
-        (err, data) => {
-          if (err) throw err;
-        },
       );
       return await HttpStatus.CREATED;
     } catch (e) {
@@ -143,9 +126,6 @@ export class UserService {
         { _id: userId },
         {
           $pull: { basket: { _id: new Types.ObjectId(EditBasketListDto._id) } },
-        },
-        (err, data) => {
-          if (err) throw err;
         },
       );
       return await { _id: EditBasketListDto._id };
