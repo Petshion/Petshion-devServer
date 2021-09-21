@@ -53,6 +53,10 @@ export class Product {
   @Prop({ type: [String] })
   @ApiProperty({ description: 'Color' })
   color: string[];
+
+  @Prop({ type: Boolean })
+  @ApiProperty({ description: 'isPawmark' })
+  isPawmark: boolean;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

@@ -7,12 +7,15 @@ import { ProductListDto } from './dto/ProductList.dto';
 import { Product, ProductDocument } from './schemas/product.schema';
 import { FilteringProductDto } from './dto/FilteringProduct.dto';
 import { QueryFilteringProductDto } from './dto/QueryFilteringProduct.dto';
+import { User, UserDocument } from 'src/user/schemas/user.schema';
 const MongoQs = require('mongo-querystring');
 @Injectable()
 export class ProductService {
   constructor(
     @InjectModel(Product.name)
     private readonly ProductModel: Model<ProductDocument>,
+    @InjectModel(User.name)
+    private readonly UserModel: Model<UserDocument>,
   ) {}
 
   async CreateProduct(
@@ -41,9 +44,27 @@ export class ProductService {
       return await e;
     }
   }
-  async ProductList(): Promise<ProductListDto[]> {
+  async ProductList(UserId): Promise<ProductListDto[]> {
     try {
-      return await this.ProductModel.find({}, { title: 1, thumbnail_image: 1 });
+      let foundProduct = await this.ProductModel.find(
+        {},
+        { title: 1, thumbnail_image: 1 },
+      );
+      for (let i = 0; i < foundProduct.length; i++) {
+        if (
+          (await this.UserModel.findOne({
+            $and: [{ _id: UserId }, { pawmark: foundProduct[i]._id }],
+          })) !== null
+        ) {
+          console.log(
+            await this.UserModel.findOne({
+              $and: [{ _id: UserId }, { pawmark: foundProduct[i]._id }],
+            }),
+          );
+          foundProduct[i].isPawmark = true;
+        } else foundProduct[i].isPawmark = false;
+      }
+      return await foundProduct;
     } catch (e) {
       console.error(e);
       Error.captureStackTrace(e);
