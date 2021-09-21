@@ -52,14 +52,32 @@ export class ProductService {
       );
       console.log(
         await this.UserModel.findOne({
-          $and: [{ _id: UserId }, { pawmark: foundProduct[0]._id }],
+          $and: [
+            { _id: UserId },
+            {
+              pawmark: {
+                product_id: foundProduct[0]._id,
+                title: foundProduct[0].title,
+                thumbnail_image: foundProduct[0].thumbnail_image,
+              },
+            },
+          ],
         }),
       );
       for (let i = 0; i < foundProduct.length; i++) {
         if (
-          await this.UserModel.findOne({
-            $and: [{ _id: UserId }, { pawmark: foundProduct[i]._id }],
-          })
+          (await this.UserModel.findOne({
+            $and: [
+              { _id: UserId },
+              {
+                pawmark: {
+                  product_id: foundProduct[0]._id,
+                  title: foundProduct[0].title,
+                  thumbnail_image: foundProduct[0].thumbnail_image,
+                },
+              },
+            ],
+          })) !== null
         ) {
           foundProduct[i].isPawmark = true;
         } else foundProduct[i].isPawmark = false;
