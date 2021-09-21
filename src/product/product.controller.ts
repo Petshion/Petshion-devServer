@@ -51,6 +51,7 @@ export class ProductController {
   async FilteringProduct(
     @Query() QueryFilteringProductDto: QueryFilteringProductDto,
   ): Promise<FilteringProductDto[]> {
+    console.log(request.query);
     return await this.productService.FilteringProduct(request.query);
   }
 }
