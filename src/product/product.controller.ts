@@ -28,6 +28,7 @@ export class ProductController {
       ['32', '36', '41', '47', '53'],
       ['19', '24', '27', '31', '35'],
     ];
+    CreateProductDto.size = ['S', 'M', 'L', 'XL', '2XL'];
     return await this.productService.CreateProduct(CreateProductDto);
   }
 
